@@ -1,6 +1,9 @@
 # boblog.py
 # manage projects in your terminal
 
+from task import Task
+
 print("boblog - startup!")
 
-return
+task1 = Task("Get out the bed.")
+task1.print_task()
