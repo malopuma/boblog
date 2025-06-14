@@ -1,8 +1,12 @@
 class Task:
-    task_to_do = ""
+    title = None
+    descryption = None
 
-    def __init__(self, task_to_do):
-        self.task_to_do = task_to_do
+    def __init__(self, title):
+        self.title = title
 
     def print_task(self):
-        print(self.task_to_do)
+        print(self.title)
+        print()
+        print(self.descryption)
+        print()

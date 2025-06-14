@@ -1,12 +1,10 @@
 # boblog.py
 # manage projects in your terminal
 
-from task import Task
-
+# from task import Task
+# from ui import UI
+from file_handling import FileHandling
+     
 print("boblog - startup!")
 
-task1 = Task("Get out the bed.")
-task1.print_task()
-task1.print_task()
-
-print("YES")
+FileHandling.open_file("test_file_name")
