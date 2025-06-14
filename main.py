@@ -2,9 +2,12 @@
 # manage projects in your terminal
 
 # from task import Task
-# from ui import UI
+from ui import UI
 from file_handling import FileHandling
-     
-print("boblog - startup!")
 
-FileHandling.open_file("test_file_name")
+run_main = True
+     
+UI.show_title()
+
+while run_main:
+    run_main = UI.select_project()
