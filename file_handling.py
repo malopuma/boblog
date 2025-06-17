@@ -1,7 +1,51 @@
+import os
 import pickle
+
 
 class FileHandling:
 
+    @staticmethod
+    def list_projects() -> None:
+        try:
+            i = 1
+            projects = os.listdir("projects")
+            for project in projects:
+                print(f"{i} - {project}")
+                i = i+1
+                
+        except Exception as e:
+            print(f"ERROR when trying list_projects: '{e}'.")
+        
+        return 
+
+    # To select a project from the projects directory. Returns filename
+    # string
+    @staticmethod
+    def select_project(selection) -> str:
+        try:
+            # Create a list of projects from the directory
+            projects = os.listdir("projects")
+            
+        except Exception as e:
+            print(f"ERROR when trying list_projects: '{e}'.")
+            return ""
+                
+        try:
+            selection = int(selection)
+            if 0 << selection <= len(projects):
+                project = projects[selection-1]
+                return project
+            else:
+                return "Invalid project number"
+            
+        except:
+            return (f"'{selection}' is not a valid number!")
+
+    # Create a new project in the projects directory                   
+    @staticmethod
+    def create_project(title: str):
+        print("Started 'FH.create_project(title: str)'")
+    
     @staticmethod
     def open_file(filename: str) -> list :
         try:
