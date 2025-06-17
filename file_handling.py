@@ -43,9 +43,19 @@ class FileHandling:
 
     # Create a new project in the projects directory                   
     @staticmethod
-    def create_project(title: str):
+    def create_project() -> str :
         print("Started 'FH.create_project(title: str)'")
-    
+
+        new_project_title = input("Title: ")
+        new_project_filename = new_project_title + ".pkl"
+        new_project_path = "projects/" + new_project_title +".pkl"
+        try:
+            with open(new_project_path, 'wb'):
+                return new_project_filename
+        except Exception as e:
+            print(f"ERROR when creating file '{new_project_path}': {e}")
+            return "ERROR"
+            
     @staticmethod
     def open_file(filename: str) -> list :
         try:

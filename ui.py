@@ -1,4 +1,4 @@
-from control import Control
+#from control import Control
 from file_handling import FileHandling as FH
 from typing import Tuple
 
@@ -20,10 +20,9 @@ class UI:
 
         selection = input("Input: ")    
         if selection == 'c':
-            FH.create_project("test")
-            return True, ""
+            return True, FH.create_project()
         elif selection == 'q':
-            return False, ""
+            return False, "QUIT"
         else:
             return True, FH.select_project(selection)
                            
@@ -33,6 +32,6 @@ class UI:
         print("1 - Show Tasks")
         print("2 - Create new task")
 
-    @staticmethod
-    def create_new_task():
-          Control.create_new_task()
+#   @staticmethod
+#  def create_new_task():
+#       Control.create_new_task()
