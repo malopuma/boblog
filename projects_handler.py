@@ -1,9 +1,11 @@
+# file_handling.py
+# for managing the projects (project.pkl files)
+
 import os
-import pickle
 
+class ProjectsHandler:
 
-class FileHandling:
-
+    # Show all projects in the current directory
     @staticmethod
     def list_projects() -> None:
         try:
@@ -18,8 +20,9 @@ class FileHandling:
         
         return 
 
-    # To select a project from the projects directory. Returns filename
-    # string
+    # To select a project from the projects directory. Returns filename string
+    # Has to be reworkes to take projects directory and then return relitve path
+    
     @staticmethod
     def select_project(selection) -> str:
         try:
@@ -33,8 +36,10 @@ class FileHandling:
         try:
             selection = int(selection)
             if 0 << selection <= len(projects):
-                project = projects[selection-1]
-                return project
+                project_filename_str = projects[selection-1]
+                # temp fix returns project path instead of filename
+                project_path = "projects/" + project_filename_str
+                return project_path
             else:
                 return "Invalid project number"
             
@@ -49,6 +54,7 @@ class FileHandling:
         new_project_title = input("Title: ")
         new_project_filename = new_project_title + ".pkl"
         new_project_path = "projects/" + new_project_title +".pkl"
+        
         try:
             with open(new_project_path, 'wb'):
                 return new_project_filename
@@ -56,29 +62,3 @@ class FileHandling:
             print(f"ERROR when creating file '{new_project_path}': {e}")
             return "ERROR"
             
-    @staticmethod
-    def open_file(filename: str) -> list :
-        try:
-            with open(filename, 'rb') as file:
-                print(f"opened file: '{filename}'")
-                tasks = pickle.load(file)
-                return tasks
-
-        except FileNotFoundError:
-            print(f"Error: File '{filename}' not found")
-            return []
-
-        except Exception as e:
-            print(f"Something went wrong when trying to open '{filename}': '{e}'!!")
-            return []
-
-    @staticmethod
-    def save_file(filename : str, data_to_save: list):
-        try:
-            with open(filename, 'wb') as file:
-                pickle.dump(data_to_save, file)
-                print(f"Sucessfully saved '{data_to_save}' to '{filename}'.")
-
-        except Exception as e:
-            print(f"Something went wrong when saving '{data_to_save}' to '{file}'!!.")
-                            

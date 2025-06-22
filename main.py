@@ -1,15 +1,18 @@
 # boblog.py
 # manage projects in your terminal
 
-# from task import Task
 from ui import UI
-# from file_handling import FileHandling
+from tasks_handler import TasksHandler as TH
 
 run_main = True
-project = None
+project_path = None
 
 UI.show_title()
 
 while run_main:
-    run_main, project = UI.select_project()
-    print(f"The selected projet is '{project}'.")
+    run_main, project_path = UI.select_project()
+    if run_main:
+        UI.show_current_project(project_path)
+
+
+    
