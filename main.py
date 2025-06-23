@@ -12,7 +12,7 @@ UI.show_title()
 while run_main:
     run_main, project_path = UI.select_project()
     if run_main:
-        UI.show_current_project(project_path)
+        UI.edit_current_project(project_path)
 
 
     

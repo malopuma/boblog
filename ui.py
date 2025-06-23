@@ -8,18 +8,28 @@ from typing import Tuple
 class UI:
 
     @staticmethod
-    def _input_menu_validation(input):
-        pass
-
-    @staticmethod
     def show_title():     
-        print("boblog - startup!")        
-    
+        print("boblog - startup!")
+                
+    # List all projects in the projects directory
+    @staticmethod
+    def list_projects():
+        PH.list_projects()
+
+    # Lists all the tasks of the given project
+    @staticmethod
+    def list_tasks(project_path):    
+        tasks = TasksHandler._load_tasks_internal(project_path)
+        print(f"The current project '{project_path}':")
+        for i, task in enumerate(tasks):
+                print(f"{i+1} - {task.title}")
+                print("")
+        
     @staticmethod
     def select_project() -> Tuple[bool, str] :
         
         print("Select a project:")
-        PH.list_projects()   
+        UI.list_projects()   
         print("")
         print("c = create new project")
         print("q = quit")
@@ -35,14 +45,10 @@ class UI:
             return True, PH.select_project(selection)
 
     @staticmethod
-    def show_current_project(project_path):
+    def edit_current_project(project_path):
         while True:
-            tasks = TasksHandler._load_tasks_internal(project_path)
-            print(f"The current project '{project_path}':")
-        
-            for i, task in enumerate(tasks):
-                print(f"{i+1} - {task.title}")
-        
+            UI.list_tasks(project_path)
+            
             print("\n a add task")
             print(" e edit task")
             print(" d delete task")
@@ -53,15 +59,34 @@ class UI:
             if choice == 'a':
                 new_task = input("New task title: ").strip()
                 TasksHandler.add_task(new_task, project_path)
+            
             elif choice == 'e':
                 pass
+                
             elif choice == 'd':
-                pass
+                selection_str = input("Enter number of task to delete, or c to cancel").strip().lower()
+                if selection_str == 'c':
+                    print("Task deletion cancelled.")
+                try:
+                    tasks = TasksHandler._load_tasks_internal(project_path)
+                    task_index = int(selection_str) -1
+                    if 0 <= task_index < len(tasks):
+                        deleted_task = tasks.pop(task_index)
+                        print(f"Task '{deleted_task.title}' has been deleted")
+                        TasksHandler._save_tasks_internal(project_path, tasks)
+                    else:                         
+                        print("Invalid task number. Please enter a number within the list range.")
+                except ValueError:
+                    print("Invalid input. Please enter a number or 'c' to cancel.")
+                except Exception as e:
+                    print(f"An unexpected error occurred during deletion: {e}")                  
+                
             elif choice == 'q':
                 return
+            
             else:
                 print(f"WARNING: Invalid input '{choice}'. Please select from list")
-        
+                input()       
                            
     @staticmethod
     def main_menu():
